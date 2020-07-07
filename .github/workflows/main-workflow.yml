@@ -1,0 +1,23 @@
+name: Main workflow
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  testAndPublish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+
+      - name: Build
+        run: npm i
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Run E2E tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run test:e2e:ci
