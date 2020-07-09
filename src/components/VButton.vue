@@ -32,7 +32,7 @@ export default defineComponent({
 
 <style scoped>
 .v-button {
-  @apply bg-gray-400 text-gray-100 py-2 px-4;
+  @apply bg-gray-400 text-gray-100 py-2 px-4 flex justify-center items-center;
 }
 
 .v-button--fab {
