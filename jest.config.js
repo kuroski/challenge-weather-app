@@ -3,5 +3,6 @@ module.exports = {
   moduleNameMapper: {
     "@tests(.*)$": "<rootDir>/tests/$1"
   },
-  preset: "@vue/cli-plugin-unit-jest"
+  preset: "@vue/cli-plugin-unit-jest",
+  transformIgnorePatterns: ["node_modules/?!(vue-unicons)"]
 };
