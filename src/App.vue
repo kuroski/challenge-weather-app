@@ -38,6 +38,48 @@
         <span class="ml-2">Berlin</span>
       </div>
     </div>
+
+    <div class="weather-timeline">
+      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+        <span>{{ i18n.t("tomorrow") }}</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8" />
+        <div class="w-full flex justify-between">
+          <span>15℃</span>
+          <span class="text-gray-200">15℃</span>
+        </div>
+      </div>
+
+      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+        <span>{{ i18n.t("tomorrow") }}</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8" />
+        <div class="w-full flex justify-between">
+          <span>15℃</span>
+          <span class="text-gray-200">15℃</span>
+        </div>
+      </div>
+
+      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+        <span>{{ i18n.t("tomorrow") }}</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8" />
+        <div class="w-full flex justify-between">
+          <span>15℃</span>
+          <span class="text-gray-200">15℃</span>
+        </div>
+      </div>
+
+      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+        <span>{{ i18n.t("tomorrow") }}</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8" />
+        <div class="w-full flex justify-between">
+          <span>15℃</span>
+          <span class="text-gray-200">15℃</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-5">
+      <h2 class="text-gray-100 text-2xl">{{ i18n.t("highlight.title") }}</h2>
+    </div>
   </div>
 </template>
 
@@ -58,7 +100,7 @@ export default defineComponent({
 
 <style scoped>
 .weather {
-  @apply relative bg-blue-200 p-5 flex flex-col items-center;
+  @apply relative bg-blue-200 px-5 pt-5 pb-24 flex flex-col items-center;
 }
 
 .weather > * {
@@ -76,5 +118,12 @@ export default defineComponent({
 .weather__icon {
   @apply flex justify-center mt-20 mb-10;
   max-width: 150px;
+}
+
+.weather-timeline {
+  @apply justify-center text-center p-12;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 120px);
+  grid-gap: 15px;
 }
 </style>

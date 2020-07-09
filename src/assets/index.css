@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 html {
-  @apply font-display;
+  @apply font-display bg-blue-300;
 }
