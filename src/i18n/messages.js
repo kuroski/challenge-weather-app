@@ -1,6 +1,8 @@
 export default {
-  en: {
-    "btn.search-places": "Search for places"
+  "en-US": {
+    "btn.search-places": "Search for places",
+    "weather.shower": "Shower",
+    today: "Today"
   },
   pt: {
     "btn.search-places": "Buscar por lugares"

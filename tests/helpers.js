@@ -3,6 +3,7 @@ import { render } from "@testing-library/vue";
 import { defineComponent, h } from "@vue/composition-api";
 import { provideI18n } from "@/hooks/i18n";
 import messages from "@/i18n/messages";
+import dateTimeFormats from "@/i18n/dateTimeFormats";
 
 export const renderWithDependencies = (
   component,
@@ -17,8 +18,10 @@ export const renderWithDependencies = (
     name: "Root",
     setup() {
       provideI18n({
-        locale: "en",
-        messages
+        locale: "en-US",
+        fallbackLocale: "en-US",
+        messages,
+        dateTimeFormats
       });
       return () => h(component);
     }

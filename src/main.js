@@ -5,7 +5,7 @@ import "./plugins";
 import store from "./store";
 import { provideI18n } from "@/hooks/i18n";
 import messages from "@/i18n/messages";
-import "vue-material-design-icons/styles.css";
+import dateTimeFormats from "@/i18n/dateTimeFormats";
 import "@/assets/index.css";
 
 Vue.config.productionTip = false;
@@ -14,8 +14,10 @@ new Vue({
   store,
   setup() {
     provideI18n({
-      locale: "en",
-      messages
+      locale: "en-US",
+      fallbackLocale: "en-US",
+      messages,
+      dateTimeFormats
     });
   },
   render: h => h(App)
