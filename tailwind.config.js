@@ -21,6 +21,11 @@ module.exports = {
         500: "#616475"
       },
       yellow: "#FFEC65"
+    },
+    extend: {
+      fontSize: {
+        "11xl": "9rem"
+      }
     }
   },
   variants: {},
