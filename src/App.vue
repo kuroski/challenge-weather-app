@@ -40,45 +40,99 @@
     </div>
 
     <div class="weather-timeline">
-      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+      <div class="text-gray-100 bg-blue-200 py-4 px-4">
         <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8" />
-        <div class="w-full flex justify-between">
-          <span>15℃</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
+        <div class="w-full flex justify-between font-medium">
+          <span class="mr-4">15℃</span>
           <span class="text-gray-200">15℃</span>
         </div>
       </div>
 
-      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+      <div class="text-gray-100 bg-blue-200 py-4 px-4">
         <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8" />
-        <div class="w-full flex justify-between">
-          <span>15℃</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
+        <div class="w-full flex justify-between font-medium">
+          <span class="mr-4">15℃</span>
           <span class="text-gray-200">15℃</span>
         </div>
       </div>
 
-      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+      <div class="text-gray-100 bg-blue-200 py-4 px-4">
         <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8" />
-        <div class="w-full flex justify-between">
-          <span>15℃</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
+        <div class="w-full flex justify-between font-medium">
+          <span class="mr-4">15℃</span>
           <span class="text-gray-200">15℃</span>
         </div>
       </div>
 
-      <div class="text-gray-100 bg-blue-200 py-4 px-6">
+      <div class="text-gray-100 bg-blue-200 py-4 px-4">
         <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8" />
-        <div class="w-full flex justify-between">
-          <span>15℃</span>
+        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
+        <div class="w-full flex justify-between font-medium">
+          <span class="mr-4">15℃</span>
           <span class="text-gray-200">15℃</span>
         </div>
       </div>
     </div>
 
     <div class="p-5">
-      <h2 class="text-gray-100 text-2xl">{{ i18n.t("highlight.title") }}</h2>
+      <h2 class="text-gray-100 text-2xl mb-8">
+        {{ i18n.t("highlight.title") }}
+      </h2>
+
+      <div
+        class="text-gray-100 bg-blue-200 py-4 px-6 mb-8 flex flex-col items-center"
+      >
+        <span>{{ i18n.t("highlight.wind") }}</span>
+        <div class="w-full flex justify-center items-end mt-2 mb-6">
+          <span class="text-6xl font-bold">7</span>
+          <span class="text-4xl leading-loose">mph</span>
+        </div>
+        <div class="w-full flex justify-center items-center">
+          <unicon
+            name="arrow-circle-up"
+            class="text-white fill-current mr-2"
+            width="22"
+            height="22"
+          />
+          <span class="text-gray-200 text-xs">WSW</span>
+        </div>
+      </div>
+
+      <div
+        class="text-gray-100 bg-blue-200 py-4 px-6 flex flex-col items-center mb-8"
+      >
+        <span>{{ i18n.t("highlight.humidity") }}</span>
+        <div class="w-full flex justify-center items-end mt-2 mb-6">
+          <span class="text-6xl font-bold">84</span>
+          <span class="text-4xl leading-loose">%</span>
+        </div>
+        <div class="w-full flex justify-center items-center">
+          ...
+        </div>
+      </div>
+
+      <div
+        class="text-gray-100 bg-blue-200 py-4 px-6 flex flex-col items-center mb-8"
+      >
+        <span>{{ i18n.t("highlight.visibility") }}</span>
+        <div class="w-full flex justify-center items-end mt-2">
+          <span class="text-6xl font-bold mr-4">6,4</span>
+          <span class="text-4xl leading-loose">miles</span>
+        </div>
+      </div>
+
+      <div
+        class="text-gray-100 bg-blue-200 py-4 px-6 flex flex-col items-center"
+      >
+        <span>{{ i18n.t("highlight.airPressure") }}</span>
+        <div class="w-full flex justify-center items-end mt-2">
+          <span class="text-6xl font-bold mr-4">998</span>
+          <span class="text-4xl leading-loose">mb</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -100,7 +154,7 @@ export default defineComponent({
 
 <style scoped>
 .weather {
-  @apply relative bg-blue-200 px-5 pt-5 pb-24 flex flex-col items-center;
+  @apply relative bg-blue-200 px-5 pt-5 pb-24 flex flex-col items-center overflow-hidden;
 }
 
 .weather > * {
