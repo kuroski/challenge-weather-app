@@ -102,15 +102,25 @@
       </div>
 
       <div
-        class="text-gray-100 bg-blue-200 py-4 px-6 flex flex-col items-center mb-8"
+        class="text-gray-100 bg-blue-200 py-4 px-12 flex flex-col items-center mb-8"
       >
         <span>{{ i18n.t("highlight.humidity") }}</span>
-        <div class="w-full flex justify-center items-end mt-2 mb-6">
+        <div class="w-full flex justify-center items-end my-2">
           <span class="text-6xl font-bold">84</span>
           <span class="text-4xl leading-loose">%</span>
         </div>
-        <div class="w-full flex justify-center items-center">
-          ...
+        <div
+          class="w-full flex flex-col justify-center items-center text-gray-200 font-bold"
+        >
+          <div class="flex items-center justify-between w-full">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+          </div>
+          <div class="bg-gray-100 w-full h-2 rounded mb-1 overflow-hidden">
+            <div class="h-full bg-yellow" :style="{ width: '40%' }"></div>
+          </div>
+          <span class="self-end">%</span>
         </div>
       </div>
 
@@ -133,6 +143,10 @@
           <span class="text-4xl leading-loose">mb</span>
         </div>
       </div>
+    </div>
+
+    <div class="mt-12 mb-8 text-gray-500 text-sm text-center">
+      Kuroski @ DevChallenges.io
     </div>
   </div>
 </template>

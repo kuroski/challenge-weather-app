@@ -5,3 +5,7 @@
 html {
   @apply font-display bg-blue-300;
 }
+
+.unicon {
+  display: inline-flex !important;
+}
