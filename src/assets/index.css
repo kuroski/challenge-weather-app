@@ -9,3 +9,7 @@ html {
 .unicon {
   display: inline-flex !important;
 }
+
+input::placeholder {
+  @apply text-gray-500;
+}

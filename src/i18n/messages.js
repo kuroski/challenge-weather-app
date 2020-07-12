@@ -8,7 +8,9 @@ export default {
     "highlight.wind": "Wind status",
     "highlight.humidity": "Humidity",
     "highlight.visibility": "Visibility",
-    "highlight.airPressure": "Air pressure"
+    "highlight.airPressure": "Air pressure",
+    search: "Search",
+    "placeholder.searchLocation": "Search location"
   },
   pt: {
     "btn.search-places": "Buscar por lugares"

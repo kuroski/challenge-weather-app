@@ -3,8 +3,18 @@ import Unicon from "vue-unicons";
 import {
   uniCrosshair,
   uniMapMarker,
-  uniArrowCircleUp
+  uniArrowCircleUp,
+  uniTimes,
+  uniSearch,
+  uniAngleRight
 } from "vue-unicons/src/icons";
 
-Unicon.add([uniCrosshair, uniMapMarker, uniArrowCircleUp]);
+Unicon.add([
+  uniCrosshair,
+  uniMapMarker,
+  uniArrowCircleUp,
+  uniTimes,
+  uniSearch,
+  uniAngleRight
+]);
 Vue.use(Unicon);

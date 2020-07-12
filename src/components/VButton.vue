@@ -5,7 +5,9 @@
     class="v-button"
     :class="{
       'v-button--fab': fab,
-      'v-button--shadow': shadow
+      'v-button--shadow': shadow,
+      'v-button--icon': icon,
+      [typeClass]: typeClass
     }"
   >
     <slot />
@@ -13,7 +15,7 @@
 </template>
 
 <script>
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent, computed } from "@vue/composition-api";
 
 export default defineComponent({
   name: "VButton",
@@ -22,10 +24,24 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    icon: {
+      type: Boolean,
+      default: false
+    },
     shadow: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: ""
     }
+  },
+  setup(props) {
+    const typeClass = computed(() => props.type && `v-button--${props.type}`);
+    return {
+      typeClass
+    };
   }
 });
 </script>
@@ -37,6 +53,14 @@ export default defineComponent({
 
 .v-button--fab {
   @apply rounded-full w-10 h-10 p-0 text-xl;
+}
+
+.v-button--icon {
+  @apply bg-transparent w-10 h-10 p-0 text-xl;
+}
+
+.v-button--primary {
+  @apply bg-blue-100;
 }
 
 .v-button--shadow {
