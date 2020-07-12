@@ -3,7 +3,7 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import "./plugins";
 import store from "./store";
-import { provideI18n } from "@/hooks/i18n";
+import { provideI18n } from "@/hooks/useI18n";
 import messages from "@/i18n/messages";
 import dateTimeFormats from "@/i18n/dateTimeFormats";
 import "@/assets/index.css";
