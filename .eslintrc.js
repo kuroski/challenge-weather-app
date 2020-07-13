@@ -16,6 +16,7 @@ module.exports = {
   },
   rules: {
     "testing-library/await-async-query": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
   },
