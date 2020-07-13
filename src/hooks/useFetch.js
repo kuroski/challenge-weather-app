@@ -1,12 +1,17 @@
-import { reactive, toRefs, ref } from "@vue/composition-api";
+import {
+  reactive,
+  toRefs,
+  ref,
+  onMounted,
+  onUnmounted
+} from "@vue/composition-api";
 
 export default (url, options) => {
   let abortController;
 
   const state = reactive({
-    result: null,
-    error: null,
-    isFetching: false
+    data: null,
+    error: null
   });
   const isCancelled = ref(false);
   const cancelledMessage = ref(undefined);
@@ -21,26 +26,26 @@ export default (url, options) => {
     cancelledMessage.value = message;
   };
 
-  const fetchData = async () => {
+  onMounted(async () => {
     abortController = new AbortController();
-    state.isFetching = true;
     try {
       const response = await fetch(url, {
         signal: abortController.signal,
         ...options
       });
       const json = await response.json();
-      state.result = json;
+      state.data = options?.decoder(json) || json;
     } catch (error) {
       state.error = error;
-    } finally {
-      state.isFetching = false;
     }
-  };
+  });
+
+  onUnmounted(() => {
+    if (abortController) cancel("Component unmounted");
+  });
 
   return {
     ...toRefs(state),
-    cancel,
-    fetchData
+    cancel
   };
 };

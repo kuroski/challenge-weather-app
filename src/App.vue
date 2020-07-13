@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div v-if="error">
+    <pre class="text-gray-100">{{ error }}</pre>
+  </div>
+  <div v-else-if="!data">
+    <span class="text-gray-100">Loading...</span>
+  </div>
+  <div v-else>
     <div
       v-if="isSearchPlacesOpen"
       class="bg-blue-200 fixed top-0 left-0 w-full h-full z-10 flex flex-col p-3"
@@ -37,7 +43,7 @@
           <button
             class="border border-transparent hover:border hover:border-gray-500 text-gray-100 flex items-center justify-between py-6 px-4 w-full"
           >
-            <span class="text-base font-medium">London</span>
+            <span class="text-base font-medium">{{ data.title }}</span>
             <unicon
               name="angle-right"
               class="text-gray-500 fill-current"
@@ -68,7 +74,9 @@
       <img src="./assets/Shower.png" class="weather__icon" />
 
       <div class="self-center">
-        <span class="text-gray-100 text-11xl">15</span>
+        <span class="text-gray-100 text-11xl">{{
+          data.weather[0].temperature
+        }}</span>
         <span class="text-gray-200 text-6xl">℃</span>
       </div>
 
@@ -197,13 +205,30 @@
     <div class="mt-12 mb-8 text-gray-500 text-sm text-center">
       Kuroski @ DevChallenges.io
     </div>
+
+    <pre class="text-gray-400">
+      {{ data }}
+    </pre>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from "@vue/composition-api";
 import { useI18n } from "@/hooks/useI18n";
+import useMetaWeatherApi from "@/hooks/useMetaWeatherApi";
 // import useFetch from "@/hooks/useFetch";
+
+// if (isSupported) {
+//   getCurrentPosition().then(coordinates => {
+//     console.log(coordinates);
+//   });
+//   const { fetchData, response } = useFetch(
+//     `https://www.metaweather.com/api/location/search/?lattlong=36.96,-122.02`
+//   );
+
+//   fetchData();
+//   console.log(response);
+// }
 
 export default defineComponent({
   name: "App",
@@ -211,19 +236,14 @@ export default defineComponent({
     const i18n = useI18n();
     const isSearchPlacesOpen = ref(false);
 
-    // if (isSupported) {
-    //   getCurrentPosition().then(coordinates => {
-    //     console.log(coordinates);
-    //   });
-    //   const { fetchData, response } = useFetch(
-    //     `https://www.metaweather.com/api/location/search/?lattlong=36.96,-122.02`
-    //   );
+    const { getFromId } = useMetaWeatherApi();
 
-    //   fetchData();
-    //   console.log(response);
-    // }
+    const BERLIN = 638242;
+    const { data, error } = getFromId(BERLIN);
 
     return {
+      data,
+      error,
       i18n,
       isSearchPlacesOpen
     };
