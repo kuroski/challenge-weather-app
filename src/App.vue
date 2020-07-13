@@ -216,19 +216,6 @@
 import { defineComponent, ref } from "@vue/composition-api";
 import { useI18n } from "@/hooks/useI18n";
 import useMetaWeatherApi from "@/hooks/useMetaWeatherApi";
-// import useFetch from "@/hooks/useFetch";
-
-// if (isSupported) {
-//   getCurrentPosition().then(coordinates => {
-//     console.log(coordinates);
-//   });
-//   const { fetchData, response } = useFetch(
-//     `https://www.metaweather.com/api/location/search/?lattlong=36.96,-122.02`
-//   );
-
-//   fetchData();
-//   console.log(response);
-// }
 
 export default defineComponent({
   name: "App",
