@@ -1,20 +1,13 @@
-import {
-  reactive,
-  toRefs,
-  ref,
-  onMounted,
-  onUnmounted
-} from "@vue/composition-api";
+import { reactive, toRefs, onMounted, onUnmounted } from "@vue/composition-api";
 
 export default (url, options) => {
   let abortController;
 
   const state = reactive({
     data: null,
-    error: null
+    error: null,
+    cancelled: undefined
   });
-  const isCancelled = ref(false);
-  const cancelledMessage = ref(undefined);
 
   const cancel = (message = "") => {
     if (!abortController) {
@@ -22,8 +15,7 @@ export default (url, options) => {
     }
 
     abortController.abort();
-    isCancelled.value = true;
-    cancelledMessage.value = message;
+    state.cancelled.value = message;
   };
 
   onMounted(async () => {

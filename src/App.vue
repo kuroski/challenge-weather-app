@@ -71,17 +71,17 @@
         </v-button>
       </div>
 
-      <img src="./assets/Shower.png" class="weather__icon" />
+      <img :src="data.weather[0].icon" class="weather__icon" />
 
       <div class="self-center">
-        <span class="text-gray-100 text-11xl">{{
-          data.weather[0].temperature
-        }}</span>
+        <span class="text-gray-100 text-11xl">
+          {{ data.weather[0].temperature }}
+        </span>
         <span class="text-gray-200 text-6xl">℃</span>
       </div>
 
       <p class="text-gray-200 text-4xl mt-6 mb-12">
-        {{ i18n.t("weather.shower") }}
+        {{ i18n.t(data.weather[0].state) }}
       </p>
 
       <div class="text-gray-200 flex items-center text-lg">
@@ -92,7 +92,7 @@
 
       <div class="text-gray-200 flex items-center mt-8">
         <unicon name="map-marker" class="fill-current" width="22" height="22" />
-        <span class="ml-2">Berlin</span>
+        <span class="ml-2">{{ data.title }}</span>
       </div>
     </div>
 
@@ -144,7 +144,9 @@
       >
         <span>{{ i18n.t("highlight.wind") }}</span>
         <div class="w-full flex justify-center items-end mt-2 mb-6">
-          <span class="text-6xl font-bold">7</span>
+          <span class="text-6xl font-bold">
+            {{ data.weather[0].windSpeed }}
+          </span>
           <span class="text-4xl leading-loose">mph</span>
         </div>
         <div class="w-full flex justify-center items-center">
@@ -153,8 +155,13 @@
             class="text-white fill-current mr-2"
             width="22"
             height="22"
+            :style="{
+              transform: `rotate(${data.weather[0].windDirection}deg)`
+            }"
           />
-          <span class="text-gray-200 text-xs">WSW</span>
+          <span class="text-gray-200 text-xs">
+            {{ data.weather[0].windDirectionCompass }}
+          </span>
         </div>
       </div>
 
@@ -163,7 +170,7 @@
       >
         <span>{{ i18n.t("highlight.humidity") }}</span>
         <div class="w-full flex justify-center items-end my-2">
-          <span class="text-6xl font-bold">84</span>
+          <span class="text-6xl font-bold">{{ data.weather[0].humidity }}</span>
           <span class="text-4xl leading-loose">%</span>
         </div>
         <div
@@ -175,7 +182,10 @@
             <span>100</span>
           </div>
           <div class="bg-gray-100 w-full h-2 rounded mb-1 overflow-hidden">
-            <div class="h-full bg-yellow" :style="{ width: '40%' }"></div>
+            <div
+              class="h-full bg-yellow"
+              :style="{ width: `${data.weather[0].humidity}%` }"
+            ></div>
           </div>
           <span class="self-end">%</span>
         </div>
@@ -186,7 +196,9 @@
       >
         <span>{{ i18n.t("highlight.visibility") }}</span>
         <div class="w-full flex justify-center items-end mt-2">
-          <span class="text-6xl font-bold mr-4">6,4</span>
+          <span class="text-6xl font-bold mr-4">
+            {{ data.weather[0].visibility }}
+          </span>
           <span class="text-4xl leading-loose">miles</span>
         </div>
       </div>
@@ -196,7 +208,9 @@
       >
         <span>{{ i18n.t("highlight.airPressure") }}</span>
         <div class="w-full flex justify-center items-end mt-2">
-          <span class="text-6xl font-bold mr-4">998</span>
+          <span class="text-6xl font-bold mr-4">
+            {{ data.weather[0].airPressure }}
+          </span>
           <span class="text-4xl leading-loose">mb</span>
         </div>
       </div>
