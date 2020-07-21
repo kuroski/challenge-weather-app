@@ -7,7 +7,8 @@ import {
   iso8601,
   map,
   oneOf,
-  compose
+  compose,
+  date
 } from "decoders";
 
 const WEATHER_STATES = {
@@ -53,11 +54,11 @@ const WEATHER_STATES = {
   }
 };
 
-const toISOStringDecoder = map(string, value => new Date(value).toISOString());
+const toISOStringDecoder = map(string, value => new Date(value));
 
 const consolidatedWeather = object({
   id: number,
-  applicable_date: compose(toISOStringDecoder, iso8601),
+  applicable_date: compose(toISOStringDecoder, date),
   wind_speed: number,
   wind_direction: number,
   wind_direction_compass: string,
@@ -90,17 +91,17 @@ const location = object({
         ...rest
       }) => ({
         ...rest,
-        windSpeed: wind_speed.toFixed(),
+        windSpeed: Math.round(wind_speed),
         windDirection: wind_direction,
         windDirectionCompass: wind_direction_compass,
-        temperature: the_temp.toFixed(),
-        maxTemperature: max_temp.toFixed(),
-        minTemperature: min_temp.toFixed(),
+        temperature: Math.round(the_temp),
+        maxTemperature: Math.round(max_temp),
+        minTemperature: Math.round(min_temp),
         state: WEATHER_STATES[weather_state_name].term,
         icon: WEATHER_STATES[weather_state_name].icon(),
-        airPressure: air_pressure.toFixed(),
-        visibility: visibility.toFixed(),
-        humidity: humidity.toFixed(),
+        airPressure: Math.round(air_pressure),
+        visibility: Math.round(visibility),
+        humidity: Math.round(humidity),
         date: applicable_date
       })
     )

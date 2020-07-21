@@ -55,60 +55,17 @@
       </ul>
     </div>
 
-    <div class="weather">
-      <div class="flex justify-between w-full">
-        <v-button shadow @click="isSearchPlacesOpen = true">
-          {{ i18n.t("btn.search-places") }}
-        </v-button>
-
-        <v-button fab>
-          <unicon
-            name="crosshair"
-            class="text-white fill-current"
-            width="22"
-            height="22"
-          />
-        </v-button>
-      </div>
-
-      <img :src="data.weather.icon" class="weather__icon" />
-
-      <div class="self-center">
-        <span class="text-gray-100 text-11xl">{{
-          data.weather.temperature
-        }}</span>
-        <span class="text-gray-200 text-6xl">℃</span>
-      </div>
-
-      <p class="text-gray-200 text-4xl mt-6 mb-12">
-        {{ i18n.t(data.weather.state) }}
-      </p>
-
-      <div class="text-gray-200 flex items-center text-lg">
-        <span>{{ i18n.t("today") }}</span>
-        <span class="mx-4">.</span>
-        <span>{{ i18n.d(new Date(), "short") }}</span>
-      </div>
-
-      <div class="text-gray-200 flex items-center mt-8">
-        <unicon name="map-marker" class="fill-current" width="22" height="22" />
-        <span class="ml-2">{{ data.title }}</span>
-      </div>
-    </div>
+    <weather-summary
+      @searchPlaces="isSearchPlacesOpen = true"
+      :weather="weatherSummary"
+    />
 
     <div class="weather-timeline">
-      <div
+      <weather-tile
         v-for="weather in data.history"
         :key="weather.id"
-        class="text-gray-100 bg-blue-200 py-4 px-4 flex flex-col justify-around"
-      >
-        <span class="pb-3">{{ i18n.d(weather.date, "short") }}</span>
-        <img :src="weather.icon" class="mx-auto" width="55" />
-        <div class="w-full flex justify-between font-medium pt-8">
-          <span class="mr-4">{{ weather.maxTemperature }}℃</span>
-          <span class="text-gray-200">{{ weather.minTemperature }}℃</span>
-        </div>
-      </div>
+        :weather="weather"
+      />
     </div>
 
     <div class="p-5">
@@ -198,12 +155,18 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "@vue/composition-api";
+import { defineComponent, ref, computed } from "@vue/composition-api";
 import { useI18n } from "@/hooks/useI18n";
 import useMetaWeatherApi from "@/hooks/useMetaWeatherApi";
+import WeatherSummary from "@/components/WeatherSummary";
+import WeatherTile from "@/components/WeatherTile";
 
 export default defineComponent({
   name: "App",
+  components: {
+    WeatherSummary,
+    WeatherTile
+  },
   setup() {
     const i18n = useI18n();
     const isSearchPlacesOpen = ref(false);
@@ -215,38 +178,25 @@ export default defineComponent({
     // const { searchfromCurrentPosition } = useMetaWeatherApi();
     // const { data, error } = searchfromCurrentPosition();
 
+    const weatherSummary = computed(() => ({
+      icon: data.value.weather.icon,
+      temperature: data.value.weather.temperature,
+      state: data.value.weather.state,
+      title: data.value.title
+    }));
+
     return {
       data,
       error,
       i18n,
-      isSearchPlacesOpen
+      isSearchPlacesOpen,
+      weatherSummary
     };
   }
 });
 </script>
 
 <style scoped>
-.weather {
-  @apply relative bg-blue-200 px-5 pt-5 pb-24 flex flex-col items-center overflow-hidden;
-}
-
-.weather > * {
-  @apply relative;
-}
-
-.weather::before {
-  @apply absolute w-full h-full top-0 left-0 bg-contain bg-no-repeat bg-center;
-  content: "";
-  background-image: url("./assets/Cloud-background.png");
-  opacity: 0.05;
-  transform: scale(1.4) translateX(-0.5rem);
-}
-
-.weather__icon {
-  @apply flex justify-center mt-20 mb-10;
-  max-width: 150px;
-}
-
 .weather-timeline {
   @apply justify-center text-center p-12;
   display: grid;
