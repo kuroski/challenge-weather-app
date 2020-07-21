@@ -71,17 +71,17 @@
         </v-button>
       </div>
 
-      <img :src="data.weather[0].icon" class="weather__icon" />
+      <img :src="data.weather.icon" class="weather__icon" />
 
       <div class="self-center">
-        <span class="text-gray-100 text-11xl">
-          {{ data.weather[0].temperature }}
-        </span>
+        <span class="text-gray-100 text-11xl">{{
+          data.weather.temperature
+        }}</span>
         <span class="text-gray-200 text-6xl">℃</span>
       </div>
 
       <p class="text-gray-200 text-4xl mt-6 mb-12">
-        {{ i18n.t(data.weather[0].state) }}
+        {{ i18n.t(data.weather.state) }}
       </p>
 
       <div class="text-gray-200 flex items-center text-lg">
@@ -97,39 +97,16 @@
     </div>
 
     <div class="weather-timeline">
-      <div class="text-gray-100 bg-blue-200 py-4 px-4">
-        <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
-        <div class="w-full flex justify-between font-medium">
-          <span class="mr-4">15℃</span>
-          <span class="text-gray-200">15℃</span>
-        </div>
-      </div>
-
-      <div class="text-gray-100 bg-blue-200 py-4 px-4">
-        <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
-        <div class="w-full flex justify-between font-medium">
-          <span class="mr-4">15℃</span>
-          <span class="text-gray-200">15℃</span>
-        </div>
-      </div>
-
-      <div class="text-gray-100 bg-blue-200 py-4 px-4">
-        <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
-        <div class="w-full flex justify-between font-medium">
-          <span class="mr-4">15℃</span>
-          <span class="text-gray-200">15℃</span>
-        </div>
-      </div>
-
-      <div class="text-gray-100 bg-blue-200 py-4 px-4">
-        <span>{{ i18n.t("tomorrow") }}</span>
-        <img src="./assets/Shower.png" class="pt-3 pb-8 mx-auto" width="55" />
-        <div class="w-full flex justify-between font-medium">
-          <span class="mr-4">15℃</span>
-          <span class="text-gray-200">15℃</span>
+      <div
+        v-for="weather in data.history"
+        :key="weather.id"
+        class="text-gray-100 bg-blue-200 py-4 px-4 flex flex-col justify-around"
+      >
+        <span class="pb-3">{{ i18n.d(weather.date, "short") }}</span>
+        <img :src="weather.icon" class="mx-auto" width="55" />
+        <div class="w-full flex justify-between font-medium pt-8">
+          <span class="mr-4">{{ weather.maxTemperature }}℃</span>
+          <span class="text-gray-200">{{ weather.minTemperature }}℃</span>
         </div>
       </div>
     </div>
@@ -144,24 +121,22 @@
       >
         <span>{{ i18n.t("highlight.wind") }}</span>
         <div class="w-full flex justify-center items-end mt-2 mb-6">
-          <span class="text-6xl font-bold">
-            {{ data.weather[0].windSpeed }}
-          </span>
+          <span class="text-6xl font-bold">{{ data.weather.windSpeed }}</span>
           <span class="text-4xl leading-loose">mph</span>
         </div>
         <div class="w-full flex justify-center items-center">
           <unicon
-            name="arrow-circle-up"
+            name="arrow-circle-down"
             class="text-white fill-current mr-2"
             width="22"
             height="22"
             :style="{
-              transform: `rotate(${data.weather[0].windDirection}deg)`
+              transform: `rotate(${data.weather.windDirection}deg)`
             }"
           />
-          <span class="text-gray-200 text-xs">
-            {{ data.weather[0].windDirectionCompass }}
-          </span>
+          <span class="text-gray-200 text-xs">{{
+            data.weather.windDirectionCompass
+          }}</span>
         </div>
       </div>
 
@@ -170,7 +145,7 @@
       >
         <span>{{ i18n.t("highlight.humidity") }}</span>
         <div class="w-full flex justify-center items-end my-2">
-          <span class="text-6xl font-bold">{{ data.weather[0].humidity }}</span>
+          <span class="text-6xl font-bold">{{ data.weather.humidity }}</span>
           <span class="text-4xl leading-loose">%</span>
         </div>
         <div
@@ -184,7 +159,7 @@
           <div class="bg-gray-100 w-full h-2 rounded mb-1 overflow-hidden">
             <div
               class="h-full bg-yellow"
-              :style="{ width: `${data.weather[0].humidity}%` }"
+              :style="{ width: `${data.weather.humidity}%` }"
             ></div>
           </div>
           <span class="self-end">%</span>
@@ -196,9 +171,9 @@
       >
         <span>{{ i18n.t("highlight.visibility") }}</span>
         <div class="w-full flex justify-center items-end mt-2">
-          <span class="text-6xl font-bold mr-4">
-            {{ data.weather[0].visibility }}
-          </span>
+          <span class="text-6xl font-bold mr-4">{{
+            data.weather.visibility
+          }}</span>
           <span class="text-4xl leading-loose">miles</span>
         </div>
       </div>
@@ -208,9 +183,9 @@
       >
         <span>{{ i18n.t("highlight.airPressure") }}</span>
         <div class="w-full flex justify-center items-end mt-2">
-          <span class="text-6xl font-bold mr-4">
-            {{ data.weather[0].airPressure }}
-          </span>
+          <span class="text-6xl font-bold mr-4">{{
+            data.weather.airPressure
+          }}</span>
           <span class="text-4xl leading-loose">mb</span>
         </div>
       </div>
@@ -219,10 +194,6 @@
     <div class="mt-12 mb-8 text-gray-500 text-sm text-center">
       Kuroski @ DevChallenges.io
     </div>
-
-    <pre class="text-gray-400">
-      {{ data }}
-    </pre>
   </div>
 </template>
 
@@ -241,6 +212,8 @@ export default defineComponent({
 
     const BERLIN = 638242;
     const { data, error } = getFromId(BERLIN);
+    // const { searchfromCurrentPosition } = useMetaWeatherApi();
+    // const { data, error } = searchfromCurrentPosition();
 
     return {
       data,

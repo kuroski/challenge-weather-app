@@ -3,7 +3,7 @@ import Unicon from "vue-unicons";
 import {
   uniCrosshair,
   uniMapMarker,
-  uniArrowCircleUp,
+  uniArrowCircleDown,
   uniTimes,
   uniSearch,
   uniAngleRight
@@ -12,7 +12,7 @@ import {
 Unicon.add([
   uniCrosshair,
   uniMapMarker,
-  uniArrowCircleUp,
+  uniArrowCircleDown,
   uniTimes,
   uniSearch,
   uniAngleRight
