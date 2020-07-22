@@ -6,54 +6,11 @@
     <span class="text-gray-100">Loading...</span>
   </div>
   <div v-else>
-    <div
+    <search-drawer
       v-if="isSearchPlacesOpen"
-      class="bg-blue-200 fixed top-0 left-0 w-full h-full z-10 flex flex-col p-3"
-    >
-      <v-button icon @click="isSearchPlacesOpen = false" class="self-end">
-        <unicon
-          name="times"
-          class="text-white fill-current"
-          width="22"
-          height="22"
-        />
-      </v-button>
-
-      <form class="flex items-center mt-4">
-        <div class="flex-1 relative">
-          <unicon
-            name="search"
-            class="text-gray-500 fill-current absolute inset-y-0 items-center ml-4"
-            width="22"
-            height="22"
-          />
-          <input
-            type="text"
-            class="border border-gray-100 bg-transparent h-12 w-full pr-4 pl-12"
-            :placeholder="i18n.t('placeholder.searchLocation')"
-          />
-        </div>
-        <v-button type="primary" class="h-full ml-3">
-          {{ i18n.t("search") }}
-        </v-button>
-      </form>
-
-      <ul class="flex flex-col mt-8">
-        <li>
-          <button
-            class="border border-transparent hover:border hover:border-gray-500 text-gray-100 flex items-center justify-between py-6 px-4 w-full"
-          >
-            <span class="text-base font-medium">{{ data.title }}</span>
-            <unicon
-              name="angle-right"
-              class="text-gray-500 fill-current"
-              width="22"
-              height="22"
-            />
-          </button>
-        </li>
-      </ul>
-    </div>
+      :title="data.title"
+      @close="isSearchPlacesOpen = false"
+    />
 
     <weather-summary
       @searchPlaces="isSearchPlacesOpen = true"
@@ -73,79 +30,39 @@
         {{ i18n.t("highlight.title") }}
       </h2>
 
-      <div
-        class="text-gray-100 bg-blue-200 py-4 px-6 mb-8 flex flex-col items-center"
+      <highlight-tile
+        :title="i18n.t('highlight.wind')"
+        :value="data.weather.windSpeed"
+        postfix="mph"
+        class="mb-8"
       >
-        <span>{{ i18n.t("highlight.wind") }}</span>
-        <div class="w-full flex justify-center items-end mt-2 mb-6">
-          <span class="text-6xl font-bold">{{ data.weather.windSpeed }}</span>
-          <span class="text-4xl leading-loose">mph</span>
-        </div>
-        <div class="w-full flex justify-center items-center">
-          <unicon
-            name="arrow-circle-down"
-            class="text-white fill-current mr-2"
-            width="22"
-            height="22"
-            :style="{
-              transform: `rotate(${data.weather.windDirection}deg)`
-            }"
-          />
-          <span class="text-gray-200 text-xs">{{
-            data.weather.windDirectionCompass
-          }}</span>
-        </div>
-      </div>
+        <wind-direction
+          :direction="data.weather.windDirection"
+          :compass="data.weather.windDirectionCompass"
+        />
+      </highlight-tile>
 
-      <div
-        class="text-gray-100 bg-blue-200 py-4 px-12 flex flex-col items-center mb-8"
+      <highlight-tile
+        :title="i18n.t('highlight.humidity')"
+        :value="data.weather.humidity"
+        postfix="%"
+        class="mb-8"
       >
-        <span>{{ i18n.t("highlight.humidity") }}</span>
-        <div class="w-full flex justify-center items-end my-2">
-          <span class="text-6xl font-bold">{{ data.weather.humidity }}</span>
-          <span class="text-4xl leading-loose">%</span>
-        </div>
-        <div
-          class="w-full flex flex-col justify-center items-center text-gray-200 font-bold"
-        >
-          <div class="flex items-center justify-between w-full">
-            <span>0</span>
-            <span>50</span>
-            <span>100</span>
-          </div>
-          <div class="bg-gray-100 w-full h-2 rounded mb-1 overflow-hidden">
-            <div
-              class="h-full bg-yellow"
-              :style="{ width: `${data.weather.humidity}%` }"
-            ></div>
-          </div>
-          <span class="self-end">%</span>
-        </div>
-      </div>
+        <progress-bar :progress="data.weather.humidity" />
+      </highlight-tile>
 
-      <div
-        class="text-gray-100 bg-blue-200 py-4 px-6 flex flex-col items-center mb-8"
-      >
-        <span>{{ i18n.t("highlight.visibility") }}</span>
-        <div class="w-full flex justify-center items-end mt-2">
-          <span class="text-6xl font-bold mr-4">{{
-            data.weather.visibility
-          }}</span>
-          <span class="text-4xl leading-loose">miles</span>
-        </div>
-      </div>
+      <highlight-tile
+        :title="i18n.t('highlight.visibility')"
+        :value="data.weather.visibility"
+        postfix="miles"
+        class="mb-8"
+      />
 
-      <div
-        class="text-gray-100 bg-blue-200 py-4 px-6 flex flex-col items-center"
-      >
-        <span>{{ i18n.t("highlight.airPressure") }}</span>
-        <div class="w-full flex justify-center items-end mt-2">
-          <span class="text-6xl font-bold mr-4">{{
-            data.weather.airPressure
-          }}</span>
-          <span class="text-4xl leading-loose">mb</span>
-        </div>
-      </div>
+      <highlight-tile
+        :title="i18n.t('highlight.airPressure')"
+        :value="data.weather.airPressure"
+        postfix="mb"
+      />
     </div>
 
     <div class="mt-12 mb-8 text-gray-500 text-sm text-center">
@@ -160,12 +77,20 @@ import { useI18n } from "@/hooks/useI18n";
 import useMetaWeatherApi from "@/hooks/useMetaWeatherApi";
 import WeatherSummary from "@/components/WeatherSummary";
 import WeatherTile from "@/components/WeatherTile";
+import SearchDrawer from "@/components/SearchDrawer";
+import HighlightTile from "@/components/HighlightTile";
+import WindDirection from "@/components/WindDirection";
+import ProgressBar from "@/components/ProgressBar";
 
 export default defineComponent({
   name: "App",
   components: {
     WeatherSummary,
-    WeatherTile
+    WeatherTile,
+    SearchDrawer,
+    HighlightTile,
+    WindDirection,
+    ProgressBar
   },
   setup() {
     const i18n = useI18n();
