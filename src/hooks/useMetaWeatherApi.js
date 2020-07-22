@@ -3,8 +3,7 @@ import useGeolocation from "@/hooks/useGeolocation";
 import * as locationDecoder from "@/decoders/location";
 
 export default () => {
-  const URL =
-    "https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location";
+  const URL = "https://www.metaweather.com/api/location";
 
   const searchFromQuery = query => useFetch(`${URL}/search/?query=${query}`);
   const searchFromLatLong = (lat, long) =>
@@ -13,7 +12,9 @@ export default () => {
     useFetch(`${URL}/${id}`, { decoder: locationDecoder.decode });
   const searchfromCurrentPosition = () => {
     const { getCurrentPosition } = useGeolocation();
-    return getCurrentPosition().then(() => {});
+    return getCurrentPosition().then(data => {
+      console.log(data);
+    });
   };
 
   return {
