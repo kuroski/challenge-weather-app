@@ -10,7 +10,8 @@
       [typeClass]: typeClass
     }"
   >
-    <slot />
+    <span v-if="isLoading">...</span>
+    <slot v-else />
   </button>
 </template>
 
@@ -35,6 +36,10 @@ export default defineComponent({
     type: {
       type: String,
       default: ""
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {

@@ -19,7 +19,8 @@ export default {
     "highlight.visibility": "Visibility",
     "highlight.airPressure": "Air pressure",
     search: "Search",
-    "placeholder.searchLocation": "Search location"
+    "placeholder.searchLocation": "Search location",
+    loading: "Loading..."
   },
   pt: {
     "btn.search-places": "Buscar por lugares"

@@ -6,6 +6,7 @@ export function makeServer({ environment = "development" } = {}) {
     routes() {
       this.urlPrefix = "https://www.metaweather.com";
       this.namespace = "/api";
+
       this.get(
         "/location/:id",
         () => ({
@@ -173,6 +174,31 @@ export function makeServer({ environment = "development" } = {}) {
           latt_long: "52.516071,13.376980",
           timezone: "Europe/Berlin"
         }),
+        { timing: 2000 }
+      );
+
+      this.get(
+        "/location/search/",
+        () => [
+          {
+            title: "London",
+            location_type: "City",
+            woeid: 44418,
+            latt_long: "51.506321,-0.12714"
+          },
+          {
+            title: "Barcelona",
+            location_type: "City",
+            woeid: 753692,
+            latt_long: "41.385578,2.168740"
+          },
+          {
+            title: "Long Beach",
+            location_type: "City",
+            woeid: 2441472,
+            latt_long: "33.766720,-118.192398"
+          }
+        ],
         { timing: 2000 }
       );
     }

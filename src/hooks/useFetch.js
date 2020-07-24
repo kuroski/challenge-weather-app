@@ -1,4 +1,10 @@
-import { reactive, toRefs, onMounted, onUnmounted } from "@vue/composition-api";
+import {
+  reactive,
+  toRefs,
+  onMounted,
+  onUnmounted,
+  getCurrentInstance
+} from "@vue/composition-api";
 
 export default (url, options) => {
   let abortController;
@@ -15,10 +21,12 @@ export default (url, options) => {
     }
 
     abortController.abort();
-    state.cancelled.value = message;
+    if (state?.cancelled?.value) {
+      state.cancelled.value = message;
+    }
   };
 
-  onMounted(async () => {
+  const exec = async () => {
     abortController = new AbortController();
     try {
       const response = await fetch(url, {
@@ -30,14 +38,18 @@ export default (url, options) => {
     } catch (error) {
       state.error = error;
     }
-  });
+  };
 
-  onUnmounted(() => {
-    if (abortController) cancel("Component unmounted");
-  });
+  if (getCurrentInstance()) {
+    onMounted(exec);
+    onUnmounted(() => {
+      if (abortController) cancel("Component unmounted");
+    });
+  }
 
   return {
     ...toRefs(state),
-    cancel
+    cancel,
+    exec
   };
 };
