@@ -29,7 +29,6 @@ export const renderWithDependencies = (
 
   return render(rootComponent, mergedOptions, (vue, store, router) => {
     const result = callback(vue, store, router);
-
     return {
       vue,
       store,
@@ -44,3 +43,9 @@ export const createEvent = name => {
   evt.initEvent(name, true, true);
   return evt;
 };
+
+export const flushPromises = () =>
+  Promise.all([
+    new Promise(setImmediate),
+    new Promise(resolve => setTimeout(resolve, 5))
+  ]);

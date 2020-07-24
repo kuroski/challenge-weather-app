@@ -1,5 +1,5 @@
 <template>
-  <div class="weather">
+  <div class="weather" data-testid="weather-summary">
     <div class="flex justify-between w-full">
       <v-button shadow @click="$emit('searchPlaces')">
         {{ i18n.t("btn.search-places") }}
@@ -15,7 +15,12 @@
       </v-button>
     </div>
 
-    <img :src="weather.icon" class="weather__icon" />
+    <img
+      :src="weather.icon"
+      class="weather__icon"
+      :alt="i18n.t(weather.state)"
+      aria-hidden="true"
+    />
 
     <div class="self-center">
       <span class="text-gray-100 text-11xl">{{ weather.temperature }}</span>

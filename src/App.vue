@@ -22,6 +22,7 @@
           v-for="weather in data.history"
           :key="weather.id"
           :weather="weather"
+          :data-testid="`weather-tile-${weather.id}`"
         />
       </div>
 

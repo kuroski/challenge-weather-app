@@ -1,7 +1,13 @@
 <template>
   <div class="text-gray-100 bg-blue-200 py-4 px-4 flex flex-col justify-around">
     <span class="pb-3">{{ i18n.d(weather.date, "short") }}</span>
-    <img :src="weather.icon" class="mx-auto" width="55" />
+    <img
+      :src="weather.icon"
+      class="mx-auto"
+      width="55"
+      :alt="i18n.t(weather.state)"
+      aria-hidden="true"
+    />
     <div class="w-full flex justify-between font-medium pt-8">
       <span class="mr-4">{{ weather.maxTemperature }}℃</span>
       <span class="text-gray-200">{{ weather.minTemperature }}℃</span>

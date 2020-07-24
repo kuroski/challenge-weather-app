@@ -4,7 +4,6 @@ import {
   number,
   object,
   string,
-  iso8601,
   map,
   oneOf,
   compose,
@@ -73,7 +72,6 @@ const consolidatedWeather = object({
 
 const location = object({
   title: string,
-  time: iso8601,
   consolidated_weather: map(array(consolidatedWeather), weathers =>
     weathers.map(
       ({
