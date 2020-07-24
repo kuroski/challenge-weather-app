@@ -2,73 +2,74 @@
   <div v-if="error">
     <pre class="text-gray-100">{{ error }}</pre>
   </div>
-  <div v-else-if="!data">
-    <span class="text-gray-100">Loading...</span>
+  <div v-else-if="!data" class="loading">
+    <img src="./assets/Shower.png" :alt="i18n.t('loading')" />
   </div>
-  <div v-else>
-    <search-drawer
-      v-if="isSearchPlacesOpen"
-      :title="data.title"
-      @close="isSearchPlacesOpen = false"
-    />
-
-    <weather-summary
-      @searchPlaces="isSearchPlacesOpen = true"
-      :weather="weatherSummary"
-    />
-
-    <div class="weather-timeline">
-      <weather-tile
-        v-for="weather in data.history"
-        :key="weather.id"
-        :weather="weather"
+  <transition v-else name="fade">
+    <div>
+      <search-drawer
+        v-if="isSearchPlacesOpen"
+        @close="isSearchPlacesOpen = false"
       />
-    </div>
 
-    <div class="p-5">
-      <h2 class="text-gray-100 text-2xl mb-8">
-        {{ i18n.t("highlight.title") }}
-      </h2>
+      <weather-summary
+        @searchPlaces="isSearchPlacesOpen = true"
+        :weather="weatherSummary"
+      />
 
-      <highlight-tile
-        :title="i18n.t('highlight.wind')"
-        :value="data.weather.windSpeed"
-        postfix="mph"
-        class="mb-8"
-      >
-        <wind-direction
-          :direction="data.weather.windDirection"
-          :compass="data.weather.windDirectionCompass"
+      <div class="weather-timeline">
+        <weather-tile
+          v-for="weather in data.history"
+          :key="weather.id"
+          :weather="weather"
         />
-      </highlight-tile>
+      </div>
 
-      <highlight-tile
-        :title="i18n.t('highlight.humidity')"
-        :value="data.weather.humidity"
-        postfix="%"
-        class="mb-8"
-      >
-        <progress-bar :progress="data.weather.humidity" />
-      </highlight-tile>
+      <div class="p-5">
+        <h2 class="text-gray-100 text-2xl mb-8">
+          {{ i18n.t("highlight.title") }}
+        </h2>
 
-      <highlight-tile
-        :title="i18n.t('highlight.visibility')"
-        :value="data.weather.visibility"
-        postfix="miles"
-        class="mb-8"
-      />
+        <highlight-tile
+          :title="i18n.t('highlight.wind')"
+          :value="data.weather.windSpeed"
+          postfix="mph"
+          class="mb-8"
+        >
+          <wind-direction
+            :direction="data.weather.windDirection"
+            :compass="data.weather.windDirectionCompass"
+          />
+        </highlight-tile>
 
-      <highlight-tile
-        :title="i18n.t('highlight.airPressure')"
-        :value="data.weather.airPressure"
-        postfix="mb"
-      />
+        <highlight-tile
+          :title="i18n.t('highlight.humidity')"
+          :value="data.weather.humidity"
+          postfix="%"
+          class="mb-8"
+        >
+          <progress-bar :progress="data.weather.humidity" />
+        </highlight-tile>
+
+        <highlight-tile
+          :title="i18n.t('highlight.visibility')"
+          :value="data.weather.visibility"
+          postfix="miles"
+          class="mb-8"
+        />
+
+        <highlight-tile
+          :title="i18n.t('highlight.airPressure')"
+          :value="data.weather.airPressure"
+          postfix="mb"
+        />
+      </div>
+
+      <div class="mt-12 mb-8 text-gray-500 text-sm text-center">
+        Kuroski @ DevChallenges.io
+      </div>
     </div>
-
-    <div class="mt-12 mb-8 text-gray-500 text-sm text-center">
-      Kuroski @ DevChallenges.io
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -127,5 +128,44 @@ export default defineComponent({
   display: grid;
   grid-template-columns: repeat(auto-fill, 120px);
   grid-gap: 15px;
+}
+
+.loading {
+  @apply fixed inset-0 bg-blue-200 flex items-center justify-center;
+  animation: fade 300ms ease-in-out;
+}
+
+.loading > img {
+  animation: pulse 800ms ease-in-out infinite alternate;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition-opacity duration-500 ease-in-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  @apply opacity-0;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
 }
 </style>
