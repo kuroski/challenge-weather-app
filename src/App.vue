@@ -10,6 +10,7 @@
       <search-drawer
         v-if="isSearchPlacesOpen"
         @close="isSearchPlacesOpen = false"
+        @select="placeSelected"
       />
 
       <weather-summary
@@ -74,9 +75,9 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from "@vue/composition-api";
-import { useI18n } from "@/hooks/useI18n";
-import useMetaWeatherApi from "@/hooks/useMetaWeatherApi";
+import { defineComponent, computed, ref } from "@vue/composition-api";
+import { useI18n } from "@/composables/useI18n";
+import useMetaWeatherApi from "@/composables/useMetaWeatherApi";
 import WeatherSummary from "@/components/WeatherSummary";
 import WeatherTile from "@/components/WeatherTile";
 import SearchDrawer from "@/components/SearchDrawer";
@@ -98,12 +99,15 @@ export default defineComponent({
     const i18n = useI18n();
     const isSearchPlacesOpen = ref(false);
 
-    const { getFromId } = useMetaWeatherApi();
-
     const BERLIN = 638242;
-    const { data, error } = getFromId(BERLIN);
-    // const { searchfromCurrentPosition } = useMetaWeatherApi();
-    // const { data, error } = searchfromCurrentPosition();
+    const { getFromId } = useMetaWeatherApi();
+    const { data, error, exec } = getFromId(BERLIN);
+    exec();
+
+    const placeSelected = id => {
+      isSearchPlacesOpen.value = false;
+      exec(id);
+    };
 
     const weatherSummary = computed(() => ({
       icon: data.value.weather.icon,
@@ -113,11 +117,12 @@ export default defineComponent({
     }));
 
     return {
-      data,
-      error,
       i18n,
+      weatherSummary,
+      placeSelected,
       isSearchPlacesOpen,
-      weatherSummary
+      data,
+      error
     };
   }
 });

@@ -47,7 +47,7 @@
 <script>
 import { guard, number, object, string } from "decoders";
 import { defineComponent } from "@vue/composition-api";
-import { useI18n } from "@/hooks/useI18n";
+import { useI18n } from "@/composables/useI18n";
 
 export default defineComponent({
   name: "WeatherSummary",

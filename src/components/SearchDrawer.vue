@@ -22,7 +22,7 @@
         <input
           autofocus
           type="text"
-          class="border border-gray-100 bg-transparent h-12 w-full pr-4 pl-12"
+          class="border text-gray-100 border-gray-100 bg-transparent h-12 w-full pr-4 pl-12"
           :placeholder="i18n.t('placeholder.searchLocation')"
           v-model="searchTerm"
         />
@@ -39,6 +39,7 @@
     <ul class="flex flex-col mt-8">
       <li v-for="result in data" :key="result.id">
         <button
+          @click="$emit('select', result.id)"
           class="border border-transparent hover:border hover:border-gray-500 text-gray-100 flex items-center justify-between py-6 px-4 w-full"
         >
           <span class="text-base font-medium">{{ result.title }}</span>
@@ -56,8 +57,8 @@
 
 <script>
 import { defineComponent, ref, reactive, toRefs } from "@vue/composition-api";
-import { useI18n } from "@/hooks/useI18n";
-import useMetaWeatherApi from "@/hooks/useMetaWeatherApi";
+import { useI18n } from "@/composables/useI18n";
+import useMetaWeatherApi from "@/composables/useMetaWeatherApi";
 
 export default defineComponent({
   name: "SearchDrawer",

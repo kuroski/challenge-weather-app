@@ -1,7 +1,6 @@
 import {
   reactive,
   toRefs,
-  onMounted,
   onUnmounted,
   getCurrentInstance
 } from "@vue/composition-api";
@@ -26,10 +25,10 @@ export default (url, options) => {
     }
   };
 
-  const exec = async () => {
+  const exec = async (overrideUrl = null) => {
     abortController = new AbortController();
     try {
-      const response = await fetch(url, {
+      const response = await fetch(overrideUrl || url, {
         signal: abortController.signal,
         ...options
       });
@@ -41,7 +40,6 @@ export default (url, options) => {
   };
 
   if (getCurrentInstance()) {
-    onMounted(exec);
     onUnmounted(() => {
       if (abortController) cancel("Component unmounted");
     });

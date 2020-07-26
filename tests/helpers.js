@@ -1,7 +1,7 @@
 import "@/plugins";
 import { render } from "@testing-library/vue";
 import { defineComponent, h } from "@vue/composition-api";
-import { provideI18n } from "@/hooks/useI18n";
+import { provideI18n } from "@/composables/useI18n";
 import messages from "@/i18n/messages";
 import dateTimeFormats from "@/i18n/dateTimeFormats";
 
